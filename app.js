@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -29,6 +30,17 @@ con.connect(function(err) {
 
 
 var app = express();
+
+var corsOptions = {
+  "origin": true,
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+  "preflightContinue": false,
+  "credentials": true,
+  "allowedHeaders": "Content-Type, Content-Length, Authorization, Accept, X-Requested-With, Cache-Control",
+  "optionsSuccessStatus": 200
+}
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
