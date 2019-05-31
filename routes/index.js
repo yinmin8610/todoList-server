@@ -19,22 +19,6 @@ router.get('/api/getAllTodos', function (req, res, next) {
   });
 });
 
-//get todo
-router.get('/api/getTodobyId', function (req, res, next) {
-
-
-  var db = req.con;
-  var id = req.body.id;
-  var result = {};
-  var qur = db.query('SELECT * FROM todo WHERE id = ?', id, function (err, rows) {
-    if (err) {
-      console.log(err);
-    }
-    result.status = 'success';
-    // result.data = rows;
-    res.json(result);
-  });
-});
 
 // add todo
 router.post('/api/addTodo', function (req, res, next) {
@@ -70,7 +54,8 @@ router.post('/api/Edit', function (req, res, next) {
   var sql = {
     id: req.body.id,
     text: req.body.text,
-    isEdited: req.body.isEdited
+    isEdited: req.body.isEdited,
+    isChecked:req.body.isChecked
   };
   var qur = db.query('UPDATE todo SET ? WHERE id = ?', [sql, id], function (err, rows) {
     if (err) {
